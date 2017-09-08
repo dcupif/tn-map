@@ -1,8 +1,33 @@
-body {
-  padding: 50px;
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html, body {
+	padding: 0px;
+	margin: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+h1 {
+	padding-top: 2vh;
+	margin: 0;
+}
+
+.roboto {
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+	color: #666;
+	font-size: 5vh;
+}
+
+#map {
+	width: 100vw;
+	height: 90vh;
+}
+
+#top {
+	width: 100vw;
+	height: 10vh;
 }
