@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= title %></title>
+    <title>TELECOM Nancy</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,10 +20,12 @@
                         En espérant que ce petit interlude à tes nombreux projets de la vie active te plaise, nous te souhaitons une bonne journée-nuit (selon où tu es !).
                         <div class="left-align">-- le CA Alisé</div>
                     </small>
-                    <form>
+                    <form action="/login" method="post">
                         <div class="form-group">
-                            <label for="nomprenom">Nom, prénom</label>
-                            <input type="text" class="form-control" id="nomprenom" aria-describedby="nomHelp" placeholder="Votre nom et prénom">
+                            <label for="username">Prénom et Nom</label>
+                            <input type="text" class="form-control" name="username" aria-describedby="nomHelp" placeholder="John Doe"><br />
+                            <label for="password">Mot de passe (temporaire)</label>
+                            <input type="password" class="form-control" name="password" aria-describedby="nomHelp"><br />
                             <small id="nomHelp" class="form-text text-muted">Cela servira pour la messagerie interne et pour vous représentez sur la carte.</small>
                         </div>
                         <div class="form-group">
