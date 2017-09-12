@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+var db = require('../mongo');
 var app = require('../app');
 var debug = require('debug')('tn-map:server');
 var http = require('http');
@@ -25,9 +26,17 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+db.connect('mongodb://localhost:27017/tn-map', function(err) {
+  if (err) {
+    console.log('Unable to connect to Mongo.');
+    process.exit(1);
+  } else {
+    console.log('Connected succesfully to Mongo. Listening on port ' + port);
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+  }
+});
 
 /**
  * Normalize a port into a number, string, or false.
