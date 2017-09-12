@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var db = require('../models/mongo');
+var db = require('../mongo');
 var app = require('../app');
 var debug = require('debug')('tn-map:server');
 var http = require('http');
