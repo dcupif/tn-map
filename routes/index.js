@@ -1,3 +1,4 @@
+var User = require('../models/user');
 var express = require('express');
 var router = express.Router();
 
@@ -14,10 +15,15 @@ router.get('/login', function(req, res, next) {
 /* POST login page. */
 router.post('/login',
   function(req, res, next) {
-    	// add user db
-    	// create cookie
-    	console.log(req);
-    	return next();
+		name = req.body.username;
+		promotion = req.body.promotion;
+		console.log('I got this. username: ' + name + ' / promotion: ' + promotion);
+		User.create(name, promotion, 0, 0);
+		console.log('New user inserted successfully!');
+		// add user db
+		// create cookie
+		//console.log(req);
+		return next();
 
   },
   function(req, res) {
