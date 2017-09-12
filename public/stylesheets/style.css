@@ -65,6 +65,9 @@ html, body {
 	justify-content: center;
 }
 
+.btn:hover {
+	cursor: pointer;
+}
 
 .btn-menu {
 	color : white;
@@ -85,7 +88,7 @@ html, body {
 }
 
 .navbar-brand >div {
-	font-size: 40px;
+	font-size: 3rem;
 }
 
 .navbar-brand >div.nancy {
@@ -120,13 +123,23 @@ html, body {
 
 .login-main-container {
 	display: flex;
-	background-color: #e9ecef;
+	background-image: url("/images/bat-1grand.jpg") ;
+	background-position: center center;
+	background-repeat:  no-repeat;
+	background-attachment: fixed;
+	background-size:  cover;
+	background-color: #e3e3e3;
 }
 
 .login-container {
-	max-width: 900px;
-	max-height: 500px;
 	margin: auto;
+	background-color: rgba(255,255,255,0.8);
+	padding: 20px;
+	border-radius: 5px
+}
+
+.login-container .display-3.navbar-brand {
+	justify-content: center;
 }
 
 .login-btn-submit {
