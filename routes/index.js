@@ -14,11 +14,8 @@ router.get('/login', function(req, res, next) {
 /* POST login page. */
 router.post('/login',
   function(req, res, next) {
-    	// add user db
-    	// create cookie
-    	console.log(req);
+		  res.cookie('user', req.body.username, { maxAge: 900000, httpOnly: true });
     	return next();
-
   },
   function(req, res) {
     res.redirect('/');
@@ -27,13 +24,18 @@ router.post('/login',
 /* GET logout page. */
 router.get('/logout', function(req, res){
   // clear the remember me cookie when logging out
+  res.clearCookie('user');
   res.redirect('/');
 });
 
 function ensureAuthenticated(req, res, next) {
-  //if cookie exist { return next(); }
-  //res.redirect('/login')
-  return next();
+  var user = req.cookies.user
+  if (user === undefined) {
+    res.redirect('/login');
+  }
+  else {
+    return next();
+  }
 }
 
 module.exports = router;
