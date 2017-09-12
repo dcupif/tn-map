@@ -17,9 +17,7 @@ router.post('/login',
   function(req, res, next) {
 		name = req.body.username;
 		promotion = req.body.promotion;
-		console.log('I got this. username: ' + name + ' / promotion: ' + promotion);
 		User.create(name, promotion, 0, 0);
-		console.log('New user inserted successfully!');
 		res.cookie('user', req.body.username, { maxAge: 900000, httpOnly: true });
     return next();
   },
