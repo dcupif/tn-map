@@ -30,10 +30,16 @@ router.post('/login',
 });
 
 /* GET logout page. */
-router.get('/logout', function(req, res){
+router.get('/logout', function(req, res) {
   // clear the remember me cookie when logging out
   res.clearCookie('user');
   res.redirect('/');
+});
+
+/* GET deleteAll page  */
+router.get('/deleteAll', function(req, res) {
+	User.deleteAll();
+	res.redirect('/');
 });
 
 function ensureAuthenticated(req, res, next) {

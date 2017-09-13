@@ -1,6 +1,6 @@
 var db = require('../mongo');
 
-// Create new user in database and return its id
+// Create new user in database
 exports.create = function(name, promotion, longitude, latitude) {
     db.get().collection('users').insertOne({
         name: name,
@@ -9,4 +9,10 @@ exports.create = function(name, promotion, longitude, latitude) {
         latitude: latitude
     });
     console.log('New user inserted into database: { username: "' + name + '", promotion: ' + promotion + ' }');
+}
+
+// Delete all users in database
+exports.deleteAll = function() {
+    db.get().collection('users').deleteMany({});
+    console.log('Removed all users from the database');
 }
