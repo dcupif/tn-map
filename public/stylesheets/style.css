@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,700');
 
 html, body {
 	margin: 0px;
-	font: 14px "Roboto", Helvetica, Arial, sans-serif;
-	min-height : 100%;
+	font: 14px "Roboto";
+	height : 100%;
 	width:100%;
 }
 
@@ -121,32 +121,6 @@ html, body {
 	display: flex;
 }
 
-.login-main-container {
-	display: flex;
-	background-image: url("/images/bat-1grand.jpg") ;
-	background-position: center center;
-	background-repeat:  no-repeat;
-	background-attachment: fixed;
-	background-size:  cover;
-	background-color: #e3e3e3;
-}
-
-.login-container {
-	margin: auto;
-	background-color: rgba(255,255,255,0.8);
-	padding: 20px;
-	border-radius: 5px
-}
-
-.login-container .display-3.navbar-brand {
-	justify-content: center;
-}
-
-.login-btn-submit {
-	padding: 40px;
-	display: flex;
-	justify-content: flex-end;
-}
 .left-align {
 	display: flex;
 	justify-content: flex-end;
@@ -195,4 +169,107 @@ html, body {
 
 textarea {
 	resize: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+/******************* LOGIN *****************/
+
+.login-main-container {
+	display: flex;
+	background-image: url("/images/bat-1grand.jpg") ;
+	background-position: center center;
+	background-repeat:  no-repeat;
+	background-size:  cover;
+	background-color: #e3e3e3;
+	height: 100%;
+}
+
+.login-container {
+	margin: auto;
+	width: 80%;
+	height: 80%;
+	display: flex;
+	-webkit-box-shadow: 0 5px 50px 1px #000000;
+	box-shadow: 0 5px 50px 1px #000000;
+}
+
+.left-login-container {
+	background-color: rgba(0,0,0,0.8);
+	color: white;
+	width: 50%;
+	padding: 40px;
+}
+
+.left-login-container > h1 {
+	padding-bottom: 20%;
+	font-weight: bold;
+}
+
+
+.left-login-container > h2 {
+	padding-bottom: 10%;
+	font-size: 2.7rem;
+	font-weight: 100;
+}
+
+.left-login-container > div {
+	padding-top: 10%;
+	font-weight: lighter;
+}
+
+.left-login-container > div > div:first {
+	font-weight: bold;
+}
+
+.left-login-container div {
+	font-size: 1.3rem;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.right-login-container {
+	background-color: white;
+	width: 50%;
+	padding: 40px;
+}
+
+.right-login-container .account-icon {
+	display: flex;
+	justify-content: center;
+	padding-top: 10%;
+	padding-bottom: 15%;
+}
+
+.right-login-container .account-icon i {
+	font-size: 96px;
+	color: purple;
+}
+
+
+.right-login-container > form label {
+	text-transform: uppercase;
+	font-size: 12px;
+	color: grey;
+}
+
+.right-login-container > form .login-btn-submit {
+	display: flex;
+	justify-content: center;
+	margin-top: 8%;
+}
+
+.right-login-container > form .login-btn-submit button {
+	width: 100%;
+	text-transform: uppercase;
 }
