@@ -24,6 +24,8 @@
                         <div class="form-group">
                             <label for="username">Prénom et Nom</label>
                             <input type="text" class="form-control" name="username" aria-describedby="nomHelp" placeholder="John Doe">
+                            <input type="hidden" id="latitude" name="latitude" aria-describedby="latitude" value="0">
+                            <input type="hidden" id="longitude" name="longitude" aria-describedby="longitude" value="0">
                             <small id="nomHelp" class="form-text text-muted">Cela servira pour la messagerie interne et pour vous représentez sur la carte.</small>
                         </div>
                         <div class="form-group">
@@ -34,12 +36,26 @@
                                 <% } %>
                             </select>
                         </div>
-                        <div class="login-btn-submit"><button type="submit" class="btn btn-lg btn-warning">Submit</button></div>
+                        <div class="login-btn-submit"><button type="submit" class="btn btn-lg btn-warning" onclick="getLocation">Submit</button></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    window.addEventListener("load", function(){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(setPosition);
+        } else {
+          //Get position from http://freegeoip.net
+          console.log("Navigateur incompatible");
+        }
+    });
+    function setPosition(position) {
+      document.getElementById("latitude").value = position.coords.latitude;
+      document.getElementById("longitude").value = position.coords.longitude;
+    }
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>

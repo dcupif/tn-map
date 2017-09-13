@@ -17,8 +17,12 @@ router.post('/login',
   function(req, res, next) {
 		name = req.body.username;
 		promotion = req.body.promotion;
-		User.create(name, promotion, 0, 0);
+    longitude = req.body.longitude;
+    latitude = req.body.latitude;
+
+		User.create(name, promotion, longitude, latitude);
 		res.cookie('user', req.body.username, { maxAge: 900000, httpOnly: true });
+    
     return next();
   },
   function(req, res) {
