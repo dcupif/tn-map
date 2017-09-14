@@ -247,8 +247,6 @@ textarea {
 .right-login-container .account-icon {
 	display: flex;
 	justify-content: center;
-	padding-top: 10%;
-	padding-bottom: 15%;
 }
 
 .right-login-container .account-icon i {
@@ -272,4 +270,12 @@ textarea {
 .right-login-container > form .login-btn-submit button {
 	width: 100%;
 	text-transform: uppercase;
+	color: white;
+}
+
+.right-login-container > form .login-btn-submit-social {
+	display: flex;
+	justify-content: center;
+	margin-top: 8%;
+	color: white;
 }
