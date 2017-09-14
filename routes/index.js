@@ -4,7 +4,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
-    res.render('index');
+    User.findAll(function(users) {
+        res.render('index', {users});
+    });
 });
 
 /* GET login page. */
@@ -22,7 +24,7 @@ router.post('/login',
 
 		User.create(name, promotion, longitude, latitude);
 		res.cookie('user', req.body.username, { maxAge: 900000, httpOnly: true });
-    
+
     return next();
   },
   function(req, res) {
@@ -39,6 +41,15 @@ router.get('/logout', function(req, res) {
 /* GET deleteAll page  */
 router.get('/deleteAll', function(req, res) {
 	User.deleteAll();
+  res.clearCookie('user');
+	res.redirect('/');
+});
+
+/* GET init page  */
+router.get('/init', function(req, res) {
+	User.deleteAll();
+  res.clearCookie('user');
+  User.init();
 	res.redirect('/');
 });
 
