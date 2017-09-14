@@ -4,13 +4,15 @@
     <title>TELECOM Nancy</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-social.css' />
+    <link rel='stylesheet' href='/stylesheets/font-awesome.min.css' />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 </head>
 <body>
     <div class="login-main-container">
         <div class="login-container">
             <div class="left-login-container">
-                <h1>TELECOM Nancy</h1>
+                <img src="images/telecom_nancy.png" width="50%" style="display: block;margin-right: auto;margin-left: auto;"/>
                 <h2>Joyeux 10ème bativersaire</h2>
                 <div>
                     <div class="bold">
@@ -42,10 +44,6 @@
                         <small id="nomHelp" class="form-text text-muted">Cela servira pour la messagerie interne et pour vous représentez sur la carte.</small>
                     </div>
                     <div class="form-group">
-                        <label for="password">Mot de passe</label>
-                        <input type="password" class="form-control" name="password" placeholder="">
-                        </div>
-                    <div class="form-group">
                         <label for="promotion">Promotion</label>
                         <select id="promotion" class="form-control" name="promotion">
                             <% for( var i=2020; i > 1992; i--) { %>
@@ -53,7 +51,19 @@
                             <% } %>
                         </select>
                     </div>
-                    <div class="login-btn-submit"><button type="submit" class="btn btn-lg btn-warning" onclick="getLocation">Submit</button></div>
+                    <div class="login-btn-submit"><button type="submit" class="btn btn-lg btn-warning" onclick="getLocation">Se connecter</button></div>
+                    <div class="row">
+                      <div class="col-md-6 login-btn-submit-social">
+                        <a class="btn btn-block btn-social btn-facebook btn-lg">
+                            <span class="fa fa-facebook"></span> Facebook
+                        </a>
+                      </div>
+                      <div class="col-md-6 login-btn-submit-social">
+                        <a class="btn btn-block btn-social btn-google btn-lg">
+                            <span class="fa fa-google"></span> Google
+                        </a>
+                      </div>
+                    </div>
                 </form>
             </div>
         </div>

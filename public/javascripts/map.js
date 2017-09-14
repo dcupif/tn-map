@@ -1,5 +1,5 @@
 function initMap() {
-    		var styledMapType = new google.maps.StyledMapType(
+    var styledMapType = new google.maps.StyledMapType(
     			[
 				  {
 				    "elementType": "geometry",
@@ -254,44 +254,72 @@ function initMap() {
 				  }
 				],
 
-            {name: 'Styled Map'});
+    {name: 'Styled Map'});
 
-			var uluru = {lat: -25.363, lng: 131.044};
-			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 4,
+    var uluru = {lat: -25.363, lng: 131.044};
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 3,
 				center: uluru
-			});
-			map.mapTypes.set('styled_map', styledMapType);
-        	map.setMapTypeId('styled_map');
+    });
+    map.mapTypes.set('styled_map', styledMapType);
+    map.setMapTypeId('styled_map');
 
-			// Try HTML5 geolocation.
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(function(position) {
-				var pos = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				};
-				map.setCenter(pos);
-				var marker = new google.maps.Marker({
-					position: pos,
-					map: map,
-					icon: 'images/user-placeholder.png'
-				});
-			}, function() {
-				handleLocationError(true, infoWindow, map.getCenter());
-			});
-			} else {
-				// Browser doesn't support Geolocation
-				handleLocationError(false, infoWindow, map.getCenter());
-			}
+    // Adding Client - HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            // Centering map on TELECOM Nancy
+            map.setCenter({lat: 48.669075, lng: 6.155275});
+            var marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                icon: 'images/dot-blue.png'
+            });
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
 
+    // Adding Server - Users from Mongo
+    for (i = 0; i < users.length; i++) {
+        createMarker(users[i]);
+    }
+    var currWindow = false;
+    function createMarker(user) {
+        var position = {
+            lat: parseFloat(user.latitude),
+            lng: parseFloat(user.longitude)
+        };
+        var userMarker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: user.name,
+            icon: 'images/dot-orange.png'
+        });
+        var infowindow = new google.maps.InfoWindow({
+            content: "Nom: " + user.name + "<br />Promo: " + user.promotion
+        });
+        userMarker.addListener('click', function() {
+          if( currWindow ) {
+              currWindow.close();
+          }
 
-			function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-				infoWindow.setPosition(pos);
-				infoWindow.setContent(browserHasGeolocation ?
-				'Error: The Geolocation service failed.' :
-				'Error: Your browser doesn\'t support geolocation.');
-			}
-    	}
+          currWindow = infowindow;
+          infowindow.open(map, userMarker);
+        });
+        userMarker.setMap(map);
+    }
 
-    	//user-placeholder.png
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+    }
+}
