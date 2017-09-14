@@ -288,18 +288,22 @@ function initMap() {
 
     // Adding Server - Users from Mongo
     for (i = 0; i < users.length; i++) {
+        createMarker(users[i]);
+        console.log(users[i]);
+    }
+    function createMarker(user) {
         var position = {
-            lat: parseFloat(users[i].latitude),
-            lng: parseFloat(users[i].longitude)
+            lat: parseFloat(user.latitude),
+            lng: parseFloat(user.longitude)
         };
         var userMarker = new google.maps.Marker({
             position: position,
             map: map,
-            title: users[i].name,
+            title: user.name,
             icon: 'images/dot-orange.png'
         });
         var infowindow = new google.maps.InfoWindow({
-          content: "Nom: " + users[i].name + "<br />Promo: " + users[i].promo
+          content: "Nom: " + user.name + "<br />Promo: " + user.promotion
         });
         userMarker.addListener('click', function() {
           infowindow.open(map, userMarker);
