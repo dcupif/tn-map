@@ -4,7 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var index = require('./routes/index');
+var session = require('express-session');
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var passport = require('passport');
+var index = require('./routes/index')(passport);
 
 var app = express();
 
@@ -19,6 +23,38 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.use(new GoogleStrategy({
+    clientID: "399948868446-j6d70f659p75fagp03ead90bq6i5359c.apps.googleusercontent.com",
+    clientSecret: "YrY8kmoyCtkRh3IF840m8d62",
+    callbackURL: "/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    console.log(cb(null, profile));
+    return cb(null, profile);
+  }
+));
+
+passport.use(new FacebookStrategy({
+    clientID: "116237885713574",
+    clientSecret: "fa9c6eb93889cc70adb42ac7e7f7e187",
+    callbackURL: '/login/facebook/return'
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    return cb(null, profile);
+  }));
+
+app.use(session({ secret: '12ansdubatiment' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 app.use('/', index);
 

@@ -267,7 +267,7 @@ textarea {
 .right-login-container > form .login-btn-submit {
 	display: flex;
 	justify-content: center;
-	margin-top: 8%;
+	margin-top: 3%;
 }
 
 .right-login-container > form .login-btn-submit button {
