@@ -241,12 +241,12 @@ textarea {
 .right-login-container {
 	background-color: white;
 	width: 50%;
-	padding: 40px;
 }
 
 .right-login-container .account-icon {
 	display: flex;
 	justify-content: center;
+	margin: 5%;
 }
 
 .right-login-container .account-icon i {
@@ -254,33 +254,57 @@ textarea {
 	color: purple;
 }
 
-.right-login-container > form {
-	margin-top : 5%;
+.sign-in-container {
+	display: flex;
+	flex-direction: column;
 }
 
-.right-login-container > form label {
-	text-transform: uppercase;
-	font-size: 12px;
-	color: grey;
+.sign-in-container .nav-pills {
+	background-color: black;
+}
+.sign-in-container .nav-pills .nav-link {
+	border-radius: 0px;
+	color: white;
 }
 
-.right-login-container > form .login-btn-submit {
+.sign-in-container .nav-pills .nav-link:hover {
+	background-color: rgba(128,0,128,0.7);
+}
+.sign-in-container .nav-pills .nav-link.active {
+	background-color: rgba(128,0,128,1);
+}
+
+.sign-in-container .tab-content {
+	margin: 5%
+}
+
+.sign-in-container .tab-content form .login-btn-submit {
 	display: flex;
 	justify-content: center;
 	margin-top: 3%;
 }
 
-.right-login-container > form .login-btn-submit button {
+.sign-in-container .tab-content form .login-btn-submit button {
 	width: 100%;
 	text-transform: uppercase;
 	color: white;
 }
 
-.right-login-container .login-btn-submit-social {
-
-	justify-content: center;
-	color: white;
+.sign-in-container .tab-content form label {
+	text-transform: uppercase;
+	font-size: 12px;
+	color: grey;
 }
+
+.connexion {
+	margin-top: 5%
+}
+
+.g-recaptcha {
+	display: flex;
+	justify-content: center;
+}
+
 @media only screen and (min-width : 767px){
 	.login-main-container {
 		height: 100%;
@@ -332,7 +356,5 @@ textarea {
 	#rc-imageselect, .g-recaptcha {
 		transform:scale(0.77);
 		-webkit-transform:scale(0.77);
-		transform-origin:0 0;
-		-webkit-transform-origin:0 0;
 	}
 }

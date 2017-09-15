@@ -36,38 +36,66 @@
                 <div class="account-icon">
                     <i class="material-icons">account_circle</i>
                 </div>
-                <div class="row">
-                  <div class="col-sm-6 login-btn-submit-social">
-                    <a class="btn btn-block btn-social btn-facebook btn-lg" href="/auth/facebook">
-                        <span class="fa fa-facebook"></span> Facebook
-                    </a>
-                  </div>
-                  <div class="col-sm-6 login-btn-submit-social">
-                    <a class="btn btn-block btn-social btn-google btn-lg" href="/auth/google">
-                        <span class="fa fa-google"></span> Google
-                    </a>
-                  </div>
-                </div>
+                <div class="sign-in-container">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#socialSignIn" role="tab">Elèves et Anciens</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#guestSignIn" role="tab">Invités</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="socialSignIn" role="tabpanel">
+                            <form action="/login" method="post">
+                                <div class="form-group">
+                                    <label for="promotion">Promotion</label>
+                                    <select id="promotion" class="form-control" name="promotion">
+                                        <% for( var i=2020; i > 1992; i--) { %>
+                                            <option><%= i %></option>
+                                        <% } %>
+                                    </select>
+                                    <div class="row connexion">
+                                      <div class="col-sm-12 login-btn-submit-social">
+                                        <a class="btn btn-block btn-social btn-google btn-lg" href="/auth/google">
+                                            <span class="fa fa-google"></span>telecomnancy.net
+                                        </a>
+                                      </div>
+                                    </div>
+                                </div>
 
-                <form action="/login" method="post">
-                    <div class="form-group">
-                        <label for="username">Prénom et Nom</label>
-                        <input type="text" class="form-control" name="username" aria-describedby="nomHelp" placeholder="John Doe">
-                        <input type="hidden" id="latitude" name="latitude" value="0">
-                        <input type="hidden" id="longitude" name="longitude" value="0">
-                        <small id="nomHelp" class="form-text text-muted">Cela servira pour la messagerie interne et pour vous représentez sur la carte.</small>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="guestSignIn" role="tabpanel">
+                            <form action="/login" method="post">
+                                <div class="form-group">
+                                    <label for="username">Prénom et Nom</label>
+                                    <input type="text" class="form-control" name="username" aria-describedby="nomHelp">
+                                    <input type="hidden" id="latitude" name="latitude" value="0">
+                                    <input type="hidden" id="longitude" name="longitude" value="0">
+                                    <small id="nomHelp" class="form-text text-muted">Cela servira pour la messagerie interne et pour vous représentez sur la carte.</small>
+                                </div>
+                                <div class="g-recaptcha" data-sitekey="6LdruTAUAAAAAGybDoclO5eldC86bb-r1qzNNqYv"></div>
+                                <div class="login-btn-submit">
+                                    <button type="submit" class="btn btn-lg btn-warning">Se connecter</button>
+                                </div>
+                            </form>
+                            <hr/>
+                            <div class="row">
+                              <div class="col-sm-6 login-btn-submit-social">
+                                <a class="btn btn-block btn-social btn-facebook btn-lg" href="/auth/facebook">
+                                    <span class="fa fa-facebook"></span>Facebook
+                                </a>
+                              </div>
+                              <div class="col-sm-6 login-btn-submit-social">
+                                <a class="btn btn-block btn-social btn-google btn-lg" href="/auth/google">
+                                    <span class="fa fa-google"></span>Google
+                                </a>
+                              </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="promotion">Promotion</label>
-                        <select id="promotion" class="form-control" name="promotion">
-                            <% for( var i=2020; i > 1992; i--) { %>
-                                <option><%= i %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                    <div class="g-recaptcha" data-sitekey="6LdruTAUAAAAAGybDoclO5eldC86bb-r1qzNNqYv"></div>
-                    <div class="login-btn-submit"><button type="submit" class="btn btn-lg btn-warning" onclick="getLocation">Se connecter</button></div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
