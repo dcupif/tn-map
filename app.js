@@ -46,7 +46,6 @@ passport.use(new GoogleStrategy({
     callbackURL: "/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(cb(null, profile));
     return cb(null, profile);
   }
 ));

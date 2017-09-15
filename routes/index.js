@@ -7,13 +7,13 @@ module.exports = function(passport) {
     /* GET home page. */
     router.get('/', ensureAuthenticated, function(req, res, next) {
         User.findAll(function(users) {
-            res.render('index', {users});
+            res.render('index', {users: users, user: req.user});
         });
     });
 
     /* GET login page. */
     router.get('/login', function(req, res, next) {
-      res.render('login');
+        res.render('login');
     });
 
     /* AUTH Facebook */
@@ -39,47 +39,50 @@ module.exports = function(passport) {
 
     /* POST login page. */
     router.post('/login',
-      function(req, res, next) {
-    		name = req.body.username;
-    		promotion = req.body.promotion;
-        longitude = req.body.longitude;
-        latitude = req.body.latitude;
+        function(req, res, next) {
+        		name = req.body.username;
+        		promotion = req.body.promotion;
+            longitude = req.body.longitude;
+            latitude = req.body.latitude;
 
-    		User.create(name, promotion, longitude, latitude);
-    		res.cookie('user', req.body.username, { maxAge: 900000, httpOnly: true });
+        		User.create(name, promotion, longitude, latitude, null, null);
+        		res.cookie('user', req.body.username, { maxAge: 900000, httpOnly: true });
 
-        return next();
-      },
-      function(req, res) {
-        res.redirect('/');
+            return next();
+        },
+        function(req, res) {
+            res.redirect('/');
     });
 
     /* GET logout page. */
     router.get('/logout', function(req, res) {
-      // clear the remember me cookie when logging out
-      res.clearCookie('user');
-      res.redirect('/');
+        // clear the remember me cookie when logging out
+        res.clearCookie('user');
+        res.redirect('/');
     });
 
     /* GET deleteAll page  */
     router.get('/deleteAll', function(req, res) {
-    	User.deleteAll();
-      res.clearCookie('user');
-    	res.redirect('/');
+      	User.deleteAll();
+        res.clearCookie('user');
+      	res.redirect('/');
     });
 
     /* GET init page  */
     router.get('/init', function(req, res) {
-    	User.deleteAll();
-      res.clearCookie('user');
-      User.init();
-    	res.redirect('/');
+      	User.deleteAll();
+        res.clearCookie('user');
+        User.init();
+      	res.redirect('/');
     });
 
     function ensureAuthenticated(req, res, next) {
-      if (req.isAuthenticated()) { return next(); }
-      res.redirect('/login')
-  }
+        //Check if user is auth via Facebook/Google or via Local Strategy (cookie)
+        if (req.isAuthenticated() || req.cookies.user !== undefined) {
+          return next();
+        }
+        res.redirect('/login')
+    }
 
     return router;
 
