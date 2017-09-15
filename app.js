@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 
 var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,12 +19,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-io.on('connection', function(socket) {
-  socket.on('chat message', function(msg) {
-    io.emit('chat message', msg);
-  });
-});
 
 app.use('/', index);
 
@@ -45,4 +37,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = {app: app, server: server};
+module.exports = app;
