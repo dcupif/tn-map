@@ -254,6 +254,9 @@ textarea {
 	color: purple;
 }
 
+.right-login-container > form {
+	margin-top : 5%;
+}
 
 .right-login-container > form label {
 	text-transform: uppercase;
@@ -264,7 +267,7 @@ textarea {
 .right-login-container > form .login-btn-submit {
 	display: flex;
 	justify-content: center;
-	margin-top: 8%;
+	margin-top: 3%;
 }
 
 .right-login-container > form .login-btn-submit button {
@@ -273,10 +276,9 @@ textarea {
 	color: white;
 }
 
-.right-login-container > form .login-btn-submit-social {
-	display: flex;
+.right-login-container .login-btn-submit-social {
+
 	justify-content: center;
-	margin-top: 8%;
 	color: white;
 }
 @media only screen and (min-width : 767px){
@@ -284,13 +286,17 @@ textarea {
 		height: 100%;
 	}
 	.login-container {
-		width: 80%;
+		width: 90%;
+	}
+
+	.right-login-container {
+		min-width: 400px;
 	}
 }
 
-@media only screen and (min-width : 1025px){
+@media only screen and (min-width : 1024px){
 	.login-container {
-		width: 50%;
+		width: 70%;
 		height: 80%;
 	}
 
@@ -299,8 +305,11 @@ textarea {
 	}
 
 	.right-login-container {
-		width: 40%
+		width: 40%;
+		min-width: 400px;
 	}
+
+
 }
 
 @media only screen and (max-width : 767px){
@@ -316,5 +325,14 @@ textarea {
 	.right-login-container {
 		width: 100%;
 		height: 100%;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	#rc-imageselect, .g-recaptcha {
+		transform:scale(0.77);
+		-webkit-transform:scale(0.77);
+		transform-origin:0 0;
+		-webkit-transform-origin:0 0;
 	}
 }
