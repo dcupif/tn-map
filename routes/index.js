@@ -8,7 +8,7 @@ module.exports = function(passport) {
     router.get('/', ensureAuthenticated, function(req, res, next) {
         User.findAll(function(users) {
             //Remove user in the future, when it will be in the db
-            res.render('index', {users: users, user: req.user});
+            res.render('index', {users: users});
         });
     });
 
@@ -18,7 +18,7 @@ module.exports = function(passport) {
     });
 
     /* AUTH Facebook */
-    router.post('/auth/facebook',
+    router.get('/auth/facebook',
         passport.authenticate('facebook'));
 
     router.get('/login/facebook/return',
