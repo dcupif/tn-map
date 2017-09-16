@@ -9,6 +9,7 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var passport = require('passport');
 var index = require('./routes/index')(passport);
+var User = require('./models/user');
 
 var app = express();
 
@@ -38,7 +39,10 @@ passport.use(new GoogleStrategy({
     callbackURL: "/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    return cb(null, profile);
+    User.findOrCreateGoogle(profile, function (err, user) {
+        if (err) {console.log(err);}
+      return cb(null, profile);
+    });
   }
 ));
 
@@ -48,8 +52,12 @@ passport.use(new FacebookStrategy({
     callbackURL: '/login/facebook/return'
   },
   function(accessToken, refreshToken, profile, cb) {
-    return cb(null, profile);
-  }));
+        User.findOrCreateFacebook(profile, function (err, user) {
+            if (err) {console.log(err);}
+          return cb(null, profile);
+        });
+  }
+));
 
 app.use(session({ secret: '12ansdubatiment' })); // session secret
 app.use(passport.initialize());

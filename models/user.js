@@ -7,9 +7,10 @@ exports.create = function(name, promotion, longitude, latitude, facebookID, goog
         promotion: promotion,
         longitude: longitude,
         latitude: latitude,
-        facebookID: facebookID,
-        googleID: googleID
+        facebookId: facebookID,
+        googleId: googleID
     });
+    //return db.get().collection('users').findOne({userId});
 }
 
 // Delete all users in database
@@ -24,6 +25,51 @@ exports.findAll = function(callback) {
             throw err;
         } else {
             callback(result);
+        }
+    });
+}
+
+exports.findOrCreateGoogle = function(profile, cb) {
+    db.get().collection('users').findOne({googleId: profile.id}).then(function(user) {
+        if (user !== undefined && user !== null) {
+            console.log("Google auth - User found");
+            cb(null, user);
+        } else {
+            console.log("Google auth - Creating user");
+            db.get().collection('users').insertOne({
+                name: profile.name.givenName + " " + profile.name.familyName,
+                promotion: 2012,
+                longitude: "79",
+                latitude: "-35",
+                facebookId: null,
+                googleId: profile.id
+            }).then(function(result) {
+              cb(null, result.ops[0]);
+          });
+        }
+    });
+}
+
+
+exports.findOrCreateFacebook = function(profile, cb) {
+
+    db.get().collection('users').findOne({facebookId: profile.id}).then(function(user) {
+        if (user !== undefined && user !== null) {
+            console.log("Facebook auth - User found");
+            console.log(user);
+            cb(null, user);
+        } else {
+            console.log("Facebook auth - Creating user");
+            db.get().collection('users').insertOne({
+                name: profile.displayName,
+                promotion: 2012,
+                longitude: "79",
+                latitude: "-35",
+                facebookId: profile.id,
+                googleId: null,
+            }).then(function(result) {
+              cb(null, result.ops[0]);
+          });
         }
     });
 }

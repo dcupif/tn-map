@@ -7,6 +7,7 @@ module.exports = function(passport) {
     /* GET home page. */
     router.get('/', ensureAuthenticated, function(req, res, next) {
         User.findAll(function(users) {
+            //Remove user in the future, when it will be in the db
             res.render('index', {users: users, user: req.user});
         });
     });
@@ -17,7 +18,7 @@ module.exports = function(passport) {
     });
 
     /* AUTH Facebook */
-    router.get('/auth/facebook',
+    router.post('/auth/facebook',
         passport.authenticate('facebook'));
 
     router.get('/login/facebook/return',
@@ -33,7 +34,6 @@ module.exports = function(passport) {
     router.get( '/auth/google/callback',
       	passport.authenticate('google', { failureRedirect: '/login' }),
         function(req, res) {
-            // Successful authentication, redirect home.
             res.redirect('/');
     });
 
@@ -70,8 +70,6 @@ module.exports = function(passport) {
 
     /* GET init page  */
     router.get('/init', function(req, res) {
-      	User.deleteAll();
-        res.clearCookie('user');
         User.init();
       	res.redirect('/');
     });
