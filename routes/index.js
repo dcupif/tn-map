@@ -7,16 +7,20 @@ module.exports = function(passport) {
     /* GET home page. */
     router.get('/', ensureAuthenticated, function(req, res, next) {
         User.findAll(function(users) {
-            //Remove user in the future, when it will be in the db
             res.render('index', {users: users});
         });
     });
 
+
+    router.get('/temp', ensureAuthenticated, function(req, res, next) {
+        res.render('temp');
+    });
+
     /* POST updateGeolocation. */
     router.post('/updateGeolocation', function(req, res, next) {
-        User.update(req.session.passport.user._id, req.body.latitude, req.body.longitude).then(function() {
-            res.render('/');
-        })
+        User.update(req.session.passport.user._id, req.body.latitude, req.body.longitude, function() {
+            res.redirect('/');
+        });
     });
 
     /* AUTH Facebook */
@@ -25,7 +29,7 @@ module.exports = function(passport) {
     router.get('/login/facebook/return',
       	passport.authenticate( 'facebook', { failureRedirect: '/login' }),
         function(req, res) {
-            res.redirect('/');
+            res.redirect('/temp');
     });
 
     /* AUTH Google */
@@ -35,12 +39,16 @@ module.exports = function(passport) {
     router.get( '/auth/google/callback',
       	passport.authenticate('google', { failureRedirect: '/login' }),
         function(req, res) {
-            res.redirect('/');
+            res.redirect('/temp');
     });
 
     /* GET login page. */
     router.get('/login', function(req, res, next) {
-        res.render('login');
+        if (req.isAuthenticated() || req.cookies.user !== undefined) {
+            res.redirect('/');
+        } else {
+            res.render('login');
+        }
     });
 
     /* POST login page. */
@@ -85,7 +93,7 @@ module.exports = function(passport) {
         if (req.isAuthenticated() || req.cookies.user !== undefined) {
           return next();
         }
-        res.redirect('/login')
+        res.redirect('/login');
     }
 
     return router;

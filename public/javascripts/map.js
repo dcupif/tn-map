@@ -263,28 +263,28 @@ function initMap() {
     });
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
-
-    // Adding Client - HTML5 geolocation.
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            // Centering map on TELECOM Nancy
-            map.setCenter({lat: 48.669075, lng: 6.155275});
-            var marker = new google.maps.Marker({
-                position: pos,
-                map: map,
-                icon: 'images/dot-blue.png'
-            });
-        }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-        });
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
+    map.setCenter({lat: 48.669075, lng: 6.155275});
+    // // Adding Client - HTML5 geolocation.
+    // if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(function(position) {
+    //         var pos = {
+    //             lat: position.coords.latitude,
+    //             lng: position.coords.longitude
+    //         };
+    //         // Centering map on TELECOM Nancy
+    //
+    //         var marker = new google.maps.Marker({
+    //             position: pos,
+    //             map: map,
+    //             icon: 'images/dot-blue.png'
+    //         });
+    //     }, function() {
+    //         handleLocationError(true, infoWindow, map.getCenter());
+    //     });
+    // } else {
+    //     // Browser doesn't support Geolocation
+    //     handleLocationError(false, infoWindow, map.getCenter());
+    // }
 
     // Adding Server - Users from Mongo
     for (i = 0; i < users.length; i++) {
@@ -296,14 +296,33 @@ function initMap() {
             lat: parseFloat(user.latitude),
             lng: parseFloat(user.longitude)
         };
-        var userMarker = new google.maps.Marker({
+
+        var userMarker;
+        var image;
+        if (user.googleId != null) {
+            image = "images/dot-google.png";
+        }
+        else if (user.facebookId != null) {
+            image = "images/dot-facebook.png";
+        }
+        else {
+            image = "images/dot-orange.png";
+        }
+        userMarker = new google.maps.Marker({
             position: position,
             map: map,
             title: user.name,
-            icon: 'images/dot-orange.png'
+            icon: image
         });
+
+        var text;
+        if (user.promotion != null) {
+            text = "Nom: " + user.name + "<br />Promo: " + user.promotion;
+        } else {
+            text = "Nom: " + user.name;
+        }
         var infowindow = new google.maps.InfoWindow({
-            content: "Nom: " + user.name + "<br />Promo: " + user.promotion
+            content: text
         });
         userMarker.addListener('click', function() {
           if( currWindow ) {

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TELECOM Nancy</title>
+</head>
+<body>
+    <form method="POST" action="/updateGeolocation" id="form">
+        <input type="hidden" name="latitude" id="latitude" value="0" />
+        <input type="hidden" name="longitude" id="longitude" value="0" />
+    </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+    window.addEventListener("load", function(){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(setPosition);
+        } else {
+          //Get position from http://freegeoip.net
+          console.log("Navigateur incompatible");
+        }
+    });
+
+    function setPosition(position) {
+        document.getElementById("latitude").value = position.coords.latitude;
+        document.getElementById("longitude").value = position.coords.longitude;
+        document.getElementById("form").submit();
+    }
+    </script>
+</body>
+</html>

@@ -26,7 +26,7 @@ exports.deleteAll = function() {
     db.get().collection('users').deleteMany({});
 }
 
-exports.update = function(id, latitude, longitude) {
+exports.update = function(id, latitude, longitude, cb) {
     db.get().collection('users').update(
         { _id: ObjectId(id) },
         { $set:
@@ -35,7 +35,9 @@ exports.update = function(id, latitude, longitude) {
                 latitude: latitude
             }
         },
-        { upsert: false });
+        { upsert: false }).then(function() {
+            cb();
+        });
 }
 
 // Find all users in database
@@ -58,7 +60,7 @@ exports.findOrCreateGoogle = function(profile, cb) {
             console.log("Google auth - Creating user");
             db.get().collection('users').insertOne({
                 name: profile.name.givenName + " " + profile.name.familyName,
-                promotion: 2012,
+                promotion: null,
                 longitude: "79",
                 latitude: "-35",
                 facebookId: null,
@@ -82,7 +84,7 @@ exports.findOrCreateFacebook = function(profile, cb) {
             console.log("Facebook auth - Creating user");
             db.get().collection('users').insertOne({
                 name: profile.displayName,
-                promotion: 2012,
+                promotion: null,
                 longitude: "79",
                 latitude: "-35",
                 facebookId: profile.id,
