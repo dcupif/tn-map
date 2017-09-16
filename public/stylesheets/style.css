@@ -300,6 +300,40 @@ textarea {
 	margin-top: 5%
 }
 
+.auth-interstice {
+	width: 100%;
+    margin-top: 20px;
+    margin-bottom: 14px;
+}
+
+.auth-interstice-label {
+	position: relative;
+	width: 100%;
+	text-align: center;
+	font-size: 15px;
+	line-height: 16px;
+	color: #4b4f5a;
+	margin: 0 auto;
+	font-weight: 400;
+}
+
+.auth-interstice-label:after, .auth-interstice-label:before {
+    content: "";
+    width: calc(50% - 130px);
+    height: 1px;
+    background-color: #dbdcde;
+    line-height: 16px;
+    position: absolute;
+    margin-top: 8px;
+    left: 0;
+}
+
+.auth-interstice-label:after {
+    left: auto;
+    right: 0;
+}
+
+
 .g-recaptcha {
 	display: flex;
 	justify-content: center;
