@@ -2,7 +2,7 @@ var io = require('socket.io')();
 var Chat = require('./models/chat');
 
 // Can't init messages here as db.get() is still null when first required.
-var messages = [];
+// var messages = [];
 // let messages = Chat.findAll(function(m) {
 //     return m
 // });
