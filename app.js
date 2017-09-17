@@ -41,7 +41,7 @@ passport.use(new GoogleStrategy({
     clientSecret: "YrY8kmoyCtkRh3IF840m8d62",
     callbackURL: "/auth/google/callback"
   },
-  function(req, accessToken, refreshToken, profile, cb) {
+  function(accessToken, refreshToken, profile, cb) {
     User.findOrCreateGoogle(profile, function (err, user) {
         if (err) {console.log(err);}
       return cb(null, user);
@@ -54,7 +54,7 @@ passport.use(new FacebookStrategy({
     clientSecret: "fa9c6eb93889cc70adb42ac7e7f7e187",
     callbackURL: '/login/facebook/return'
   },
-  function(req, accessToken, refreshToken, profile, cb) {
+  function(accessToken, refreshToken, profile, cb) {
     User.findOrCreateFacebook(profile, function (err, user) {
         if (err) {console.log(err);}
         return cb(err,user);
