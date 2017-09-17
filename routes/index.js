@@ -6,8 +6,14 @@ module.exports = function(passport) {
 
     /* GET home page. */
     router.get('/', ensureAuthenticated, function(req, res, next) {
+        var username;
+        if (req.session.passport === undefined) {
+            username = req.cookies.user;
+        } else {
+            username = req.session.passport.user.name;
+        }
         User.findAll(function(users) {
-            res.render('index', {users: users});
+            res.render('index', {users: users, username: username});
         });
     });
 
