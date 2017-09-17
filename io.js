@@ -1,8 +1,10 @@
 var io = require('socket.io')();
 var Chat = require('./models/chat');
 
+// Can't init messages here as db.get() is still null when first required.
+var messages = [];
 // let messages = Chat.findAll(function(m) {
-//     return m;
+//     return m
 // });
 
 let messages = [{
@@ -15,16 +17,22 @@ let messages = [{
     message: 'Déjà 10 ans... Félicitations !'
 }];
 
+
 io.on('connection', function(socket) {
     socket.on('loadChats', function() {
+        // messages = Chat.findAll(function(m) {
+        //     return m
+        // });
+
         socket.emit('loadChatsRet', messages);
     });
 
-    socket.on('sendMessage', function(m) {
+    socket.on('sendMessage', function(user, text) {
+        let date = new Date();
         const c = {
-            user: 'Unknown',
-            time: new Date().getTime(),
-            message: m
+            user: user,
+            time: date.getTime(),
+            message: text
         };
 
         io.emit('messageSent', c);

@@ -3,6 +3,7 @@ ObjectId = require('mongodb').ObjectID;
 
 // Create new chat in database
 exports.create = function(user, time, message) {
+
     db.get().collection('chats').insertOne({
         user: user,
         time: time,
@@ -21,7 +22,7 @@ exports.findAll = function(callback) {
     callback(db.get().collection('chats').find().map(function(c) {
         return c;
     }) || []);
-
+    
     // var cursor = db.get().collection('chats').find().toArray(function(err, result) {
     //     if (err) {
     //         throw err;

@@ -3,6 +3,7 @@ class Chat extends React.Component {
         super(props);
 
         this.state = {
+            me : props.me,
             message: '',
             messages: []
         };
@@ -10,6 +11,7 @@ class Chat extends React.Component {
 
     componentWillMount = () => {
         socket.on('loadChatsRet', (c) => {
+            console.log(c);
             this.setState({
                 messages: c
             });
@@ -51,7 +53,7 @@ class Chat extends React.Component {
     }
 
     _sendMessage = () => {
-        socket.emit('sendMessage', this.state.message);
+        socket.emit('sendMessage', this.state.me, this.state.message);
 
         this.setState({
             message: ''
@@ -68,7 +70,7 @@ class Chat extends React.Component {
                                 <li key={km} className="list-group-item">
                                     <div className="entry-message-container">
                                         <div className="name-placeholder">{m.user}</div>
-                                        <div className="hour-placeholder">{moment(Number(m.time)).format()}</div>
+                                        <div className="hour-placeholder">{moment(Number(m.time)).format('LT')}</div>
                                         <div className="text-placeholder">{m.message}</div>
                                     </div>
                                 </li>
@@ -91,7 +93,7 @@ class Chat extends React.Component {
                             <button
                                 type="submit"
                                 className="btn btn-outline-warning"
-                                onClick={this._sendMessage}>
+                                onClick={() => {this._sendMessage} }>
                                 <i className="material-icons">send</i>
                             </button>
                         </div>

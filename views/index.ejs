@@ -115,11 +115,12 @@
         moment().format();
         moment().locale('fr');
 
+        var username = <%- JSON.stringify(username) %>
         const socket = io();
 
         window.addEventListener("load", function(){
             ReactDOM.render(
-                <Chat />,
+                <Chat me={username}/>,
                 document.getElementById('chatCollapse')
             );
         });
