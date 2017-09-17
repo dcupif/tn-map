@@ -1,4 +1,5 @@
 var db = require('../mongo');
+ObjectId = require('mongodb').ObjectID;
 
 // Create new user in database
 exports.create = function(name, promotion, longitude, latitude, facebookID, googleID) {
@@ -13,9 +14,28 @@ exports.create = function(name, promotion, longitude, latitude, facebookID, goog
     //return db.get().collection('users').findOne({userId});
 }
 
+// Find User
+exports.find = function(id, cb) {
+    db.get().collection('users').findOne({_id: ObjectId(id)}).then(function(user) {
+        cb(user);
+    });
+}
+
 // Delete all users in database
 exports.deleteAll = function() {
     db.get().collection('users').deleteMany({});
+}
+
+exports.update = function(id, latitude, longitude) {
+    db.get().collection('users').update(
+        { _id: ObjectId(id) },
+        { $set:
+            {
+                longitude: longitude,
+                latitude: latitude
+            }
+        },
+        { upsert: false });
 }
 
 // Find all users in database

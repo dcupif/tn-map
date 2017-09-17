@@ -30,7 +30,9 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+    User.find(user._id, function (result) {
+        done(null, result);
+    });
 });
 
 passport.use(new GoogleStrategy({
@@ -38,10 +40,10 @@ passport.use(new GoogleStrategy({
     clientSecret: "YrY8kmoyCtkRh3IF840m8d62",
     callbackURL: "/auth/google/callback"
   },
-  function(accessToken, refreshToken, profile, cb) {
+  function(req, accessToken, refreshToken, profile, cb) {
     User.findOrCreateGoogle(profile, function (err, user) {
         if (err) {console.log(err);}
-      return cb(null, profile);
+      return cb(null, user);
     });
   }
 ));
@@ -51,11 +53,11 @@ passport.use(new FacebookStrategy({
     clientSecret: "fa9c6eb93889cc70adb42ac7e7f7e187",
     callbackURL: '/login/facebook/return'
   },
-  function(accessToken, refreshToken, profile, cb) {
-        User.findOrCreateFacebook(profile, function (err, user) {
-            if (err) {console.log(err);}
-          return cb(null, profile);
-        });
+  function(req, accessToken, refreshToken, profile, cb) {
+    User.findOrCreateFacebook(profile, function (err, user) {
+        if (err) {console.log(err);}
+        return cb(err,user);
+    });
   }
 ));
 

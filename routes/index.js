@@ -12,14 +12,15 @@ module.exports = function(passport) {
         });
     });
 
-    /* GET login page. */
-    router.get('/login', function(req, res, next) {
-        res.render('login');
+    /* POST updateGeolocation. */
+    router.post('/updateGeolocation', function(req, res, next) {
+        User.update(req.session.passport.user._id, req.body.latitude, req.body.longitude).then(function() {
+            res.render('/');
+        })
     });
 
     /* AUTH Facebook */
-    router.get('/auth/facebook',
-        passport.authenticate('facebook'));
+    router.get('/auth/facebook', passport.authenticate('facebook') );
 
     router.get('/login/facebook/return',
       	passport.authenticate( 'facebook', { failureRedirect: '/login' }),
@@ -37,13 +38,18 @@ module.exports = function(passport) {
             res.redirect('/');
     });
 
+    /* GET login page. */
+    router.get('/login', function(req, res, next) {
+        res.render('login');
+    });
+
     /* POST login page. */
     router.post('/login',
         function(req, res, next) {
         		name = req.body.username;
         		promotion = req.body.promotion;
-            longitude = req.body.longitude;
-            latitude = req.body.latitude;
+                longitude = req.body.longitude;
+                latitude = req.body.latitude;
 
         		User.create(name, promotion, longitude, latitude, null, null);
         		res.cookie('user', req.body.username, { maxAge: 900000, httpOnly: true });

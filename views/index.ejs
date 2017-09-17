@@ -134,10 +134,25 @@
     </script>
     <script src="javascripts/map.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJGZTs8mUHBXCm9EhqMf2LjUFlq9DcHx4&callback=initMap">
     </script>
     <script>
+        window.addEventListener("load", function(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(setPosition);
+            } else {
+              //Get position from http://freegeoip.net
+              console.log("Navigateur incompatible");
+            }
+        });
+
+        function setPosition(position) {
+            $.post( "/updateGeolocation", { latitude: position.coords.latitude, longitude: position.coords.longitude } );
+        }
+
         $(function() {
             var socket = io();
             $('form').submit(function() {
