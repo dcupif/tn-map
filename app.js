@@ -10,6 +10,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var passport = require('passport');
 var index = require('./routes/index')(passport);
 var User = require('./models/user');
+var Chat = require('./models/chat');
 
 var app = express();
 
