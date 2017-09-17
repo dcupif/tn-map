@@ -7,7 +7,6 @@
     <link rel='stylesheet' href='/stylesheets/bootstrap-social.css' />
     <link rel='stylesheet' href='/stylesheets/font-awesome.min.css' />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
     <div class="login-main-container">
@@ -47,44 +46,24 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="socialSignIn" role="tabpanel">
-                            <form action="/login" method="post">
-                                <div class="auth-interstice">
-                                    <div class="auth-interstice-label">Connexion par TELECOM Nancy.net</div>
+                            <div class="auth-interstice">
+                                <div class="auth-interstice-label">Connectez-vous</div>
+                            </div>
+                                <div class="row">
+                                  <div class="col-sm-6 login-btn-submit-social">
+                                    <a class="btn btn-block btn-social btn-facebook btn-lg" href="/auth/facebook">
+                                        <span class="fa fa-facebook"></span>Facebook
+                                    </a>
+                                  </div>
+                                  <div class="col-sm-6 login-btn-submit-social">
+                                    <a class="btn btn-block btn-social btn-google btn-lg" href="/auth/google">
+                                        <span class="fa fa-google"></span>Google
+                                    </a>
+                                  </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="promotion">Promotion</label>
-                                    <select id="promotion" class="form-control" name="promotion">
-                                        <% for( var i=2020; i > 1992; i--) { %>
-                                            <option><%= i %></option>
-                                        <% } %>
-                                    </select>
-                                    <div class="row connexion">
-                                      <div class="col-sm-12 login-btn-submit-social">
-                                        <a class="btn btn-block btn-social btn-google btn-lg" href="/auth/google">
-                                            <span class="fa fa-google"></span>telecomnancy.net
-                                        </a>
-                                      </div>
-                                    </div>
-                                </div>
-
-                            </form>
                         </div>
                         <div class="tab-pane" id="guestSignIn" role="tabpanel">
-                            <div class="row">
-                              <div class="col-sm-6 login-btn-submit-social">
-                                <a class="btn btn-block btn-social btn-facebook btn-lg" href="/auth/facebook">
-                                    <span class="fa fa-facebook"></span>Facebook
-                                </a>
-                              </div>
-                              <div class="col-sm-6 login-btn-submit-social">
-                                <a class="btn btn-block btn-social btn-google btn-lg" href="/auth/google">
-                                    <span class="fa fa-google"></span>Google
-                                </a>
-                              </div>
-                            </div>
-                            <div class="auth-interstice">
-                                <div class="auth-interstice-label">Ou connexion par nom-prénom</div>
-                            </div>
+
                             <form action="/login" method="post">
                                 <div class="form-group">
                                     <label for="username">Prénom et Nom</label>
@@ -93,7 +72,6 @@
                                     <input type="hidden" id="longitude" name="longitude" value="0">
                                     <small id="nomHelp" class="form-text text-muted">Cela servira pour la messagerie interne et pour vous représentez sur la carte.</small>
                                 </div>
-                                <div class="g-recaptcha" data-sitekey="6LdruTAUAAAAAGybDoclO5eldC86bb-r1qzNNqYv"></div>
                                 <div class="login-btn-submit">
                                     <button type="submit" class="btn btn-lg btn-warning">Se connecter</button>
                                 </div>

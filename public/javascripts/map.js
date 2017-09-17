@@ -316,11 +316,11 @@ function initMap() {
         });
 
         var text;
-        if (user.promotion != null) {
-            text = "Nom: " + user.name + "<br />Promo: " + user.promotion;
-        } else {
+        //if (user.promotion != null) {
+        //    text = "Nom: " + user.name + "<br />Promo: " + user.promotion;
+        //} else {
             text = "Nom: " + user.name;
-        }
+        //}
         var infowindow = new google.maps.InfoWindow({
             content: text
         });
