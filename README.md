@@ -15,6 +15,24 @@ Cette application web Node.js / Express / MongoDB propose une carte du monde aff
 Un systeme de messagerie instantanée est également disponible ainsi que différents liens vers les vidéos de retransmission
 de l'évènement en direct.
 
+## Fonctionnement
+
+Vous aurez besoin d'une base de données MongoDB nommée 'tn-map'. Veillez à configurer les applications Google et Facebook en fonction de votre url. Une connexion HTTPS est nécessaire pour utiliser la fonction HTML5 'Geolocation.getCurrentPosition()'.
+
+```bash
+# Clone this repository
+$ git clone https://github.com/dcupif/tn-map.git
+
+# Go into the repository
+$ cd tn-map
+
+# Install dependencies
+$ npm install
+
+# Launch the app
+$ npm start
+```
+
 ## Auteurs
 
 [Caroline BOYER](https://github.com/CarolineBoyer)
