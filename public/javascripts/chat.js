@@ -11,7 +11,6 @@ class Chat extends React.Component {
 
     componentWillMount = () => {
         socket.on('loadChatsRet', (c) => {
-            console.log(c);
             this.setState({
                 messages: c
             });
@@ -63,7 +62,7 @@ class Chat extends React.Component {
     render() {
         return (
             <div id="chat">
-                <div className="card">
+                <div className="card overflowY">
                     <ul className="list-group">
                         {this.state.messages.map((m, km) => {
                             return (

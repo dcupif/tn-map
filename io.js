@@ -20,11 +20,15 @@ let messages = [{
 
 io.on('connection', function(socket) {
     socket.on('loadChats', function() {
-        // messages = Chat.findAll(function(m) {
-        //     return m
-        // });
-
-        socket.emit('loadChatsRet', messages);
+        var cursor = Chat.findAll();
+        cursor.toArray(function(err, result) {
+            if (err) {
+                throw err;
+            } else {
+                socket.emit('loadChatsRet', result);
+            }
+        })
+        //socket.emit('loadChatsRet', messages);
     });
 
     socket.on('sendMessage', function(user, text) {
