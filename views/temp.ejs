@@ -14,15 +14,23 @@
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(setPosition);
         } else {
-          //Get position from http://freegeoip.net
-          console.log("Navigateur incompatible");
+            console.log("Set position from IP");
+            setPositionFromIP();
         }
-        submitForm();
     });
 
     function setPosition(position) {
         document.getElementById("latitude").value = position.coords.latitude;
         document.getElementById("longitude").value = position.coords.longitude;
+        submitForm();
+    }
+    
+    function setPositionFromIP() {
+        $.getJSON('https://ipapi.co/json/', function(data) {
+          document.getElementById("latitude").value = JSON.stringify(data.latitude, null, 2);
+          document.getElementById("longitude").value = JSON.stringify(data.longitude, null, 2);
+          submitForm();
+        });
     }
     
     function submitForm() {
