@@ -14,6 +14,8 @@ var Chat = require('./models/chat');
 
 var app = express();
 
+var config = require("./config.json")
+
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -39,7 +41,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
     clientID: "399948868446-j6d70f659p75fagp03ead90bq6i5359c.apps.googleusercontent.com",
     clientSecret: "YrY8kmoyCtkRh3IF840m8d62",
-    callbackURL: "/auth/google/callback"
+    callbackURL: config.host+"/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreateGoogle(profile, function (err, user) {
@@ -52,7 +54,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: "116237885713574",
     clientSecret: "fa9c6eb93889cc70adb42ac7e7f7e187",
-    callbackURL: '/login/facebook/return'
+    callbackURL: config.host+'/login/facebook/return'
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreateFacebook(profile, function (err, user) {

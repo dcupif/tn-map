@@ -1,19 +1,25 @@
 var User = require('../models/user');
 var express = require('express');
 var router = express.Router();
+var moment = require("moment");
 
 module.exports = function(passport) {
 
     /* GET home page. */
     router.get('/', ensureAuthenticated, function(req, res, next) {
         var username;
-        if (req.session.passport === undefined) {
+        if (req.session.passport === undefined
+            || ( Object.keys(req.session.passport).length === 0 && req.session.passport.constructor === Object) ) {
+            console.log("IF");
             username = req.cookies.user;
         } else {
+            console.log("ELSE");
+            console.log(req.session);
             username = req.session.passport.user.name;
         }
+        console.log(username);
         User.findAll(function(users) {
-            res.render('index', {users: users, username: username});
+            res.render('index', {users: users, username: username, moment: moment});
         });
     });
 

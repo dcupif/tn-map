@@ -8,20 +8,47 @@
         <input type="hidden" name="latitude" id="latitude" value="0" />
         <input type="hidden" name="longitude" id="longitude" value="0" />
     </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
     window.addEventListener("load", function(){
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(setPosition);
+            navigator.geolocation.getCurrentPosition(setPosition, showError);
         } else {
-          //Get position from http://freegeoip.net
-          console.log("Navigateur incompatible");
+            //TODO : put it somewhere on the screen
+            console.log("Geolocation not supported");
+            setPositionFromIP();
         }
     });
+
+    function showError(error) {
+        console.log("Error", error.code);
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+            case error.POSITION_UNAVAILABLE:
+            case error.TIMEOUT:
+            case error.UNKNOWN_ERROR:
+            default:
+                console.log("Set position from IP");
+                setPositionFromIP();
+                break;
+        }
+    }
 
     function setPosition(position) {
         document.getElementById("latitude").value = position.coords.latitude;
         document.getElementById("longitude").value = position.coords.longitude;
+        submitForm();
+    }
+
+    function setPositionFromIP() {
+        $.getJSON('https://ipapi.co/json/', function(data) {
+          document.getElementById("latitude").value = JSON.stringify(data.latitude, null, 2);
+          document.getElementById("longitude").value = JSON.stringify(data.longitude, null, 2);
+          submitForm();
+        });
+    }
+
+    function submitForm() {
         document.getElementById("form").submit();
     }
     </script>

@@ -126,7 +126,6 @@ html, body {
 	justify-content: flex-end;
 }
 
-
 #map {
 	width: 100%;
 	height: calc(100vh - 106px);
@@ -171,6 +170,12 @@ html, body {
 	white-space: pre-line;
 }
 
+.name-placeholder {
+	min-width: 120px;
+	width: 120px;
+	max-width: 120px;
+}
+
 .list-group-item:nth-child(2n) .name-placeholder {
 	color: purple;
 }
@@ -191,7 +196,11 @@ textarea {
 }
 
 
-
+.modal-body .card {
+	margin-bottom: 10px;
+	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
 
 
 
