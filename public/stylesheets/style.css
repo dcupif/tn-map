@@ -145,11 +145,12 @@ html, body {
 #chat {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	height: calc(100vh - 106px);
 }
 
 #chat .card {
 	flex: 1 1 auto;
+	overflow-y: auto;
 }
 
 .loader {

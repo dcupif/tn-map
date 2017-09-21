@@ -19,10 +19,10 @@ exports.deleteAll = function() {
 
 // Find all chats in database
 exports.findAll = function(callback) {
-    callback(db.get().collection('chats').find().map(function(c) {
-        return c;
-    }) || []);
-    
+    // callback(db.get().collection('chats').find().map(function(c) {
+    //     return c;
+    // }) || []);
+    return db.get().collection('chats').find();
     // var cursor = db.get().collection('chats').find().toArray(function(err, result) {
     //     if (err) {
     //         throw err;

@@ -11,7 +11,6 @@ class Chat extends React.Component {
 
     componentWillMount = () => {
         socket.on('loadChatsRet', (c) => {
-            console.log(c);
             this.setState({
                 messages: c
             });
