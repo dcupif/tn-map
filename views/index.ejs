@@ -70,16 +70,18 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title"><%- moment("2017-09-23T12:00:00+01:00").format("HH:mm")%> -  <%-moment("2017-09-23T15:00:00+01:00").format("HH:mm")%> | Brunch et Activités</h4>
-                                        <h6 class="card-subtitle mb-2 text-muted">Jeux des 10 ans : Participez même de loin au quizz. Etes vous incollable sur TNCY ?</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">Quizz des 10 ans : Etes vous incollable sur TNCY ?</h6>
                                         <p class="text-right">
-                                            <% if (moment("2017-09-23T13:05:00+01:00") < moment() ) { %>
-                                                <a href="#" class="card-link">Jouer ( Lien Kahoot )</a>
-                                            <% } else  {%>
-                                                <span>Revenez vers <%- moment("2017-09-23T13:05:00+01:00").format("HH:mm") %>.</span>
-                                            <% } %>
+                                            <% if(<%- moment("2017-09-23T13:05:00+01:00").format("HH:mm")%> < moment() ) { %>
+                                                <a href="#" class="card-link">Testez-vous !</a>
+                                            <% } else { %>
+                                                <span> Disponible dans <%- moment("2017-09-23T13:05:00+01:00").fromNow()%> </soan>
+                                            <%} %>
                                         </p>
+                                        <h6 class="card-subtitle mb-2 text-muted">Espace Pro : Discutez stage, emplois, partenariat.</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">Minecraft : retrouvez le batiment TNCY dans le fameux monde cubique</h6>
                                         <p class="text-right"><a href="#" class="card-link">Téléchargez la carte</a></p>
+                                        <h6 class="card-subtitle mb-2 text-muted">Photobooth sur places, jeux pour les grands et les petits et plus encore !</h6>
 
                                     </div>
                                     <div class="card-footer text-muted">
