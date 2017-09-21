@@ -17,11 +17,15 @@
           //Get position from http://freegeoip.net
           console.log("Navigateur incompatible");
         }
+        submitForm();
     });
 
     function setPosition(position) {
         document.getElementById("latitude").value = position.coords.latitude;
         document.getElementById("longitude").value = position.coords.longitude;
+    }
+    
+    function submitForm() {
         document.getElementById("form").submit();
     }
     </script>
