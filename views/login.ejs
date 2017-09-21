@@ -114,7 +114,6 @@
     }
 
     function setPositionFromIP() {
-        console.log($);
         $.getJSON('https://ipapi.co/json/', function(data) {
           document.getElementById("latitude").value = JSON.stringify(data.latitude, null, 2);
           document.getElementById("longitude").value = JSON.stringify(data.longitude, null, 2);

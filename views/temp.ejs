@@ -4,7 +4,7 @@
     <title>TELECOM Nancy</title>
 </head>
 <body>
-    <form method="POST" action="/updateGeolocation" id="temp-form">
+    <form method="POST" action="/updateGeolocation" id="form">
         <input type="hidden" name="latitude" id="latitude" value="0" />
         <input type="hidden" name="longitude" id="longitude" value="0" />
     </form>
@@ -49,7 +49,7 @@
     }
 
     function submitForm() {
-        document.getElementById("temp-form").submit();
+        document.getElementById("form").submit();
     }
     </script>
 </body>
