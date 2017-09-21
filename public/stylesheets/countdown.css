@@ -1,0 +1,58 @@
+html, body, #countdown, .main-container{
+    margin: 0px;
+    height : 100%;
+    width:100%;
+}
+
+
+
+.main-container {
+    display: flex;
+    background-image: url("/images/bat-1grand.jpg") ;
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-size:  cover;
+    background-color: #e3e3e3;
+}
+
+.countdown-container {
+    margin : auto;
+    background-color: rgba(255,255,255,0.8);
+    height: 20%;
+    width: 100%;
+    display: flex;
+}
+
+.countdown {
+    margin:auto;
+    display: flex;
+    font-size: 5rem;
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+
+@keyframes countdownAnimation {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -10%, 0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: none;
+    }
+
+    to {
+        opacity: 0;
+        transform: translate3d(0, 10%, 0);
+    }
+}
+
+.animation {
+    animation-name: countdownAnimation;
+    backface-visibility: visible !important;
+}

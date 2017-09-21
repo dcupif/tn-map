@@ -14,13 +14,7 @@ io.on('connection', function(socket) {
             } else {
                 socket.emit('loadChatsRet', result);
             }
-<<<<<<< HEAD
-        })
-        //socket.emit('loadChatsRet', messages);
-=======
         });
-
->>>>>>> 368c626adbb90134125bd08745bab6c41fab449e
     });
 
     socket.on('sendMessage', function(user, text) {

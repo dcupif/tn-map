@@ -95,14 +95,12 @@
     });
 
     function showError(error) {
-        console.log("Error", error.code);
         switch(error.code) {
             case error.PERMISSION_DENIED:
             case error.POSITION_UNAVAILABLE:
             case error.TIMEOUT:
             case error.UNKNOWN_ERROR:
             default:
-                console.log("Set position from IP");
                 setPositionFromIP();
                 break;
         }

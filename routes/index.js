@@ -10,14 +10,10 @@ module.exports = function(passport) {
         var username;
         if (req.session.passport === undefined
             || ( Object.keys(req.session.passport).length === 0 && req.session.passport.constructor === Object) ) {
-            console.log("IF");
             username = req.cookies.user;
         } else {
-            console.log("ELSE");
-            console.log(req.session);
             username = req.session.passport.user.name;
         }
-        console.log(username);
         User.findAll(function(users) {
             res.render('index', {users: users, username: username, moment: moment});
         });
@@ -102,10 +98,14 @@ module.exports = function(passport) {
 
     function ensureAuthenticated(req, res, next) {
         //Check if user is auth via Facebook/Google or via Local Strategy (cookie)
-        if (req.isAuthenticated() || req.cookies.user !== undefined) {
-          return next();
+        if (moment() >= moment("2017-09-23T10:00:00+01:00") ) {
+            if (req.isAuthenticated() || req.cookies.user !== undefined) {
+              return next();
+            }
+            res.redirect('/login');
+        } else {
+            res.render('countdown');
         }
-        res.redirect('/login');
     }
 
     return router;
