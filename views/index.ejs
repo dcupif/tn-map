@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 </head>
 <body>
     <div class="card">
@@ -12,9 +13,6 @@
             <div class="navbar navbar-light bg-light">
                 <a class="navbar-brand" href="#"><div>T</div><div>E</div><div>L</div><div>E</div><div>C</div><div>O</div><div>M</div><div class="nancy">Nancy</div></a>
                 <ul class="nav justify-content-end">
-                    <li class="nav-item special-nav-item">
-                        <button type="button" class="btn-menu"><i class="material-icons">map</i></button>
-                    </li>
                     <li class="nav-item special-nav-item">
                         <button type="button" class="btn-menu" data-toggle="modal" data-target="#programModal">
                             <i class="material-icons">assignment</i>
@@ -45,39 +43,47 @@
                             </div>
                             <div class="modal-body">
                                 <div class="card">
-                                    <div class="card-header">9h-11h (GMT + 1)</div>
                                     <div class="card-body">
-                                        <h4 class="card-title">Discours Ouverture</h4>
-                                        <h6 class="card-subtitle mb-2 text-muted">Olivier FESTOR, directeur de TELECOM Nancy.</h6>
-                                        <p class="text-right"><a href="#" class="card-link">Voir</a></p>
-                                    </div>
-                                    <div class="card-footer text-muted">
-                                        Il y a 2 heures.
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header">11h (GMT + 1)</div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Visite Virtuelle</h4>
-                                        <h6 class="card-subtitle mb-2 text-muted">Parcourez grâce à Citizen Cam, le batiment de l'école</h6>
-                                        <p class="text-right"><a href="#" class="card-link">Voir</a></p>
-                                    </div>
-                                    <div class="card-footer text-muted">
-                                        Il y a 1 heure.
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header">14h (GMT + 1)</div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Visite à distance</h4>
-                                        <h6 class="card-subtitle mb-2 text-muted">Découvrez en avant-première le batiment TNCY façon minecraft !</h6>
-                                        <p class="text-right"><a href="#" class="card-link">Téléchargez la carte</a></p>
-                                        <h6 class="card-subtitle mb-2 text-muted">Faites une visite virtuelle de TELECOM (Youtube)</h6>
-                                        <p class="text-right"><a href="https://www.youtube.com/watch?v=1LNM3u4moRg" class="card-link">Voir</a></p>
+                                        <h4 class="card-title"><%- moment("2017-09-23T10:45:00+01:00").format("HH:mm") %> | Visite Virtuelle</h4>
+                                        <h6 class="card-subtitle mb-2 text-muted">Suivez le guide en direct grâce à Citizen Cam</h6>
+                                        <p class="text-right"><a href="#" class="card-link">En direct</a></p>
+
+                                        <h6 class="card-subtitle mb-2 text-muted">Visite virtuelle de TELECOM Nancy faite par un ancien élève !</h6>
+                                        <p class="text-right"><a href="https://www.youtube.com/watch?v=1LNM3u4moRg" class="card-link">Lien Youtube</a></p>
 
                                     </div>
                                     <div class="card-footer text-muted">
-                                        N'a pas encore eu lieu.
+                                        <%- moment("2017-09-23T10:45:00+01:00").fromNow()%>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><%- moment("2017-09-23T11:15:00+01:00").format("HH:mm")%> | Discours</h4>
+                                        <h6 class="card-subtitle mb-2 text-muted">Olivier FESTOR, directeur de TELECOM Nancy <br/> Jerome BOUTET, président Alisé</h6>
+                                        <p class="text-right">Non retranscrit.</p>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        <%- moment("2017-09-23T11:15:00+01:00").fromNow()%>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><%- moment("2017-09-23T12:00:00+01:00").format("HH:mm")%> -  <%-moment("2017-09-23T15:00:00+01:00").format("HH:mm")%> | Brunch et Activités</h4>
+                                        <h6 class="card-subtitle mb-2 text-muted">Jeux des 10 ans : Participez même de loin au quizz. Etes vous incollable sur TNCY ?</h6>
+                                        <p class="text-right">
+                                            <% if (moment("2017-09-23T13:05:00+01:00") < moment() ) { %>
+                                                <a href="#" class="card-link">Jouer ( Lien Kahoot )</a>
+                                            <% } else  {%>
+                                                <span>Revenez vers <%- moment("2017-09-23T13:05:00+01:00").format("HH:mm") %>.</span>
+                                            <% } %>
+                                        </p>
+                                        <h6 class="card-subtitle mb-2 text-muted">Minecraft : retrouvez le batiment TNCY dans le fameux monde cubique</h6>
+                                        <p class="text-right"><a href="#" class="card-link">Téléchargez la carte</a></p>
+
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        <%- moment("2017-09-23T12:00:00+01:00").fromNow() %>
                                     </div>
                                 </div>
                             </div>
@@ -94,8 +100,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/fr.js" integrity="sha256-DJpVvSniFq7HyHLFi3n3thaGrgI4XiEsDnQwyY3BnIo=" crossorigin="anonymous"></script>
     <script crossorigin src="https://unpkg.com/react@15/dist/react.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
@@ -106,6 +110,9 @@
     <script src="javascripts/map.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js" integrity="sha256-sdmLD9jD1PIzq3KOQPNSGZYxjv76rds79Mnyk5JNp1M=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/fr.js" integrity="sha256-DJpVvSniFq7HyHLFi3n3thaGrgI4XiEsDnQwyY3BnIo=" crossorigin="anonymous"></script>
+
     <script type="text/babel" src="javascripts/chat.js"></script>
 
     <script async defer
@@ -124,17 +131,6 @@
                 document.getElementById('chatCollapse')
             );
         });
-
-        // $(function() {
-        //     $('form').submit(function() {
-        //         socket.emit('chat message', $('#messageToSend').val());
-        //         $('#messageToSend').val('');
-        //         return false;
-        //     });
-        //     socket.on('chat message', function(msg) {
-        //         console.log('emit message received from server... msg: ' + msg);
-        //     });
-        // });
     </script>
 </body>
 </html>

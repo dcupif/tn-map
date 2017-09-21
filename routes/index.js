@@ -1,6 +1,7 @@
 var User = require('../models/user');
 var express = require('express');
 var router = express.Router();
+var moment = require("moment");
 
 module.exports = function(passport) {
 
@@ -13,7 +14,7 @@ module.exports = function(passport) {
             username = req.session.passport.user.name;
         }
         User.findAll(function(users) {
-            res.render('index', {users: users, username: username});
+            res.render('index', {users: users, username: username, moment: moment});
         });
     });
 
