@@ -152,12 +152,14 @@
 <script crossorigin src="https://unpkg.com/react@15/dist/react.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js" integrity="sha256-sdmLD9jD1PIzq3KOQPNSGZYxjv76rds79Mnyk5JNp1M=" crossorigin="anonymous"></script>
+
 
 <script>
 var users = <%- JSON.stringify(users) %>;
+
 </script>
 <script src="javascripts/map.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js" integrity="sha256-sdmLD9jD1PIzq3KOQPNSGZYxjv76rds79Mnyk5JNp1M=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/fr.js" integrity="sha256-DJpVvSniFq7HyHLFi3n3thaGrgI4XiEsDnQwyY3BnIo=" crossorigin="anonymous"></script>
 
@@ -167,9 +169,13 @@ var users = <%- JSON.stringify(users) %>;
 <script type="text/babel">
 moment().format();
 moment().locale('fr');
-
 var username = <%- JSON.stringify(username) %>
-const socket = io();
+var socket = io();
+
+socket.on("newUserInput", function (data) {
+    createMarker(data);
+})
+
 
 window.addEventListener("load", function(){
     ReactDOM.render(
@@ -177,6 +183,50 @@ window.addEventListener("load", function(){
         document.getElementById('chatCollapse')
     );
 });
+
+function createMarker(user) {
+    var position = {
+        lat: parseFloat(user.latitude),
+        lng: parseFloat(user.longitude)
+    };
+
+    var userMarker;
+    var image;
+    if (user.googleId != null) {
+        image = "images/dot-google.png";
+    }
+    else if (user.facebookId != null) {
+        image = "images/dot-facebook.png";
+    }
+    else {
+        image = "images/dot-orange.png";
+    }
+    userMarker = new google.maps.Marker({
+        position: position,
+        map: map,
+        title: user.name,
+        icon: image
+    });
+
+    var text;
+    //if (user.promotion != null) {
+    //    text = "Nom: " + user.name + "<br />Promo: " + user.promotion;
+    //} else {
+        text = "Nom: " + user.name;
+    //}
+    var infowindow = new google.maps.InfoWindow({
+        content: text
+    });
+    userMarker.addListener('click', function() {
+      if( currWindow ) {
+          currWindow.close();
+      }
+
+      currWindow = infowindow;
+      infowindow.open(map, userMarker);
+    });
+    userMarker.setMap(map);
+}
 </script>
 </body>
 </html>

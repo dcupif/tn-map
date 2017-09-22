@@ -1,5 +1,6 @@
 var io = require('socket.io')();
 var Chat = require('./models/chat');
+var User = require('./models/user');
 
 // Can't init messages here as db.get() is still null when first required.
 var messages = [];
@@ -30,6 +31,12 @@ io.on('connection', function(socket) {
         messages.push(c);
         Chat.create(c.user, c.time, c.message);
     });
+
+    socket.on('newUser', function( newUserData ) {
+        io.emit('newUserInput', newUserData);
+    });
+
+
 });
 
 module.exports = io;

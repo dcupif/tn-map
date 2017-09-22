@@ -2,14 +2,26 @@
 <html>
 <head>
     <title>TELECOM Nancy</title>
+    <link rel='stylesheet' href='/stylesheets/countdown.css' />
 </head>
 <body>
-    <form method="POST" action="/updateGeolocation" id="form">
-        <input type="hidden" name="latitude" id="latitude" value="0" />
-        <input type="hidden" name="longitude" id="longitude" value="0" />
-    </form>
+    <div id="countdown">
+        <div class="loader-container">
+            <div class="loader" />
+        </div>
+        <form method="POST" action="/updateGeolocation" id="form">
+            <input type="hidden" name="latitude" id="latitude" value="0" />
+            <input type="hidden" name="longitude" id="longitude" value="0" />
+        </form>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js" integrity="sha256-sdmLD9jD1PIzq3KOQPNSGZYxjv76rds79Mnyk5JNp1M=" crossorigin="anonymous"></script>
+
+
     <script>
+    var socket = io();
+
     window.addEventListener("load", function(){
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(setPosition, showError);
@@ -28,9 +40,9 @@
             case error.TIMEOUT:
             case error.UNKNOWN_ERROR:
             default:
-                console.log("Set position from IP");
-                setPositionFromIP();
-                break;
+            console.log("Set position from IP");
+            setPositionFromIP();
+            break;
         }
     }
 
@@ -42,15 +54,23 @@
 
     function setPositionFromIP() {
         $.getJSON('https://ipapi.co/json/', function(data) {
-          document.getElementById("latitude").value = JSON.stringify(data.latitude, null, 2);
-          document.getElementById("longitude").value = JSON.stringify(data.longitude, null, 2);
-          submitForm();
+            document.getElementById("latitude").value = JSON.stringify(data.latitude, null, 2);
+            document.getElementById("longitude").value = JSON.stringify(data.longitude, null, 2);
+            submitForm();
         });
     }
 
     function submitForm() {
-        document.getElementById("form").submit();
+        socket.emit("newUser",
+        {   name : <%- JSON.stringify(user.name) %>,
+            facebookId : <%- JSON.stringify(user.facebookId) %>,
+            googleId : <%- JSON.stringify(user.googleId) %>,
+            longitude: document.getElementById("longitude").value,
+            latitude: document.getElementById("latitude").value
+        }
+        );
+        setTimeout(function(){ document.getElementById("form").submit(); }, 1000);
     }
-    </script>
+</script>
 </body>
 </html>

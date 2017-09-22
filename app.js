@@ -46,7 +46,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreateGoogle(profile, function (err, user) {
         if (err) {console.log(err);}
-      return cb(null, user);
+        return cb(null, user);
     });
   }
 ));

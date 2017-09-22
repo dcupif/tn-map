@@ -3,6 +3,9 @@ var express = require('express');
 var router = express.Router();
 var moment = require("moment");
 
+var io = require("socket.io")();
+var config = require("../config.json");
+
 module.exports = function(passport) {
 
     /* GET home page. */
@@ -21,7 +24,7 @@ module.exports = function(passport) {
 
 
     router.get('/temp', ensureAuthenticated, function(req, res, next) {
-        res.render('temp');
+        res.render('temp', {user : req.session.passport.user});
     });
 
     /* POST updateGeolocation. */
@@ -62,13 +65,13 @@ module.exports = function(passport) {
     /* POST login page. */
     router.post('/login',
         function(req, res, next) {
-        		name = req.body.username;
-        		promotion = req.body.promotion;
-                longitude = req.body.longitude;
-                latitude = req.body.latitude;
+    		name = req.body.username;
+    		promotion = req.body.promotion;
+            longitude = req.body.longitude;
+            latitude = req.body.latitude;
 
-        		User.create(name, promotion, longitude, latitude, null, null);
-        		res.cookie('user', req.body.username, { maxAge: 900000, httpOnly: true });
+    		User.create(name, promotion, longitude, latitude, null, null);
+    		res.cookie('user', req.body.username, { maxAge: 900000, httpOnly: true });
 
             return next();
         },
@@ -77,38 +80,38 @@ module.exports = function(passport) {
     });
 
     /* GET logout page. */
-    /*
     router.get('/logout', function(req, res) {
         // clear the remember me cookie when logging out
-        res.clearCookie('user');
+        if (!config.prod) {
+            res.clearCookie('user');
+        }
+
         res.redirect('/');
     });
-    */
+
     /* GET deleteAll page  */
-    /*
     router.get('/deleteAll', function(req, res) {
-      	User.deleteAll();
-        res.clearCookie('user');
+      	if (!config.prod) {
+            User.deleteAll();
+            res.clearCookie('user');
+        }
       	res.redirect('/');
     });
-    */
+
     /* GET init page  */
-    /*
     router.get('/init', function(req, res) {
-        User.init();
+        if (!config.prod) {
+            User.init();
+        }
       	res.redirect('/');
     });
-    */
+
     function ensureAuthenticated(req, res, next) {
         //Check if user is auth via Facebook/Google or via Local Strategy (cookie)
         if (req.isAuthenticated() || req.cookies.user !== undefined) {
           return next();
         }
-        if (  moment() >= moment("2017-09-22T23:00:01+01:00") ) {
-            res.redirect('/login');
-        } else {
-            res.render('countdown');
-        }
+        res.redirect('/login');
     }
 
     return router;

@@ -1,3 +1,6 @@
+var map;
+var currWindow = false;
+
 function initMap() {
     var styledMapType = new google.maps.StyledMapType(
     			[
@@ -257,9 +260,9 @@ function initMap() {
     {name: 'Styled Map'});
 
     var uluru = {lat: -25.363, lng: 131.044};
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 3,
-				center: uluru
+		center: uluru
     });
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
@@ -290,7 +293,7 @@ function initMap() {
     for (i = 0; i < users.length; i++) {
         createMarker(users[i]);
     }
-    var currWindow = false;
+    // var currWindow = false;
     function createMarker(user) {
         var position = {
             lat: parseFloat(user.latitude),
