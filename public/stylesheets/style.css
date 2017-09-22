@@ -196,13 +196,27 @@ textarea {
 }
 
 
-.modal-body .card {
+.modal-body > .card {
 	margin-bottom: 10px;
 	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
+#accordion {
+	margin-bottom: 10px;
+}
+#accordion .card-block {
+	padding: 5px;
+}
 
+.mb-0 > a {
+	color: #868e96;
+	font-size: 1rem;
+}
+
+.mb-0 > a:hover {
+	text-decoration: none;
+}
 
 
 

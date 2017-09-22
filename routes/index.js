@@ -101,8 +101,7 @@ module.exports = function(passport) {
         if (req.isAuthenticated() || req.cookies.user !== undefined) {
           return next();
         }
-        
-        if (  moment() >= moment("2017-09-23T00:00:00+01:00") ) {
+        if (  moment() >= moment("2017-09-22T23:00:01+01:00") ) {
             res.redirect('/login');
         } else {
             res.render('countdown');

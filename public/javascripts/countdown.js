@@ -19,8 +19,8 @@ class Countdown extends React.Component {
     }
 
     tick = () => {
-        let endDate = moment("2017-09-23T00:00:00+01:00")
-        let diff = endDate.diff(moment().utc(1));
+        let endDate = moment("2017-09-22T23:00:01+01:00");
+        let diff = endDate.diff(moment());
         let time = moment.duration(diff);
         this.setState({
             classSeconds : time.seconds() != this.state.seconds ? "animated" : "",
@@ -42,8 +42,8 @@ class Countdown extends React.Component {
             <div className="main-container">
                 <div className="countdown-container">
 
-                        { this.state.diff === 0 ?
-                            <div className="">
+                        { this.state.diff <= 0 ?
+                            <div className="countdown">
                                 <a href="#" className="btn btn-lg btn-warning">Welcome et Bon bativersaire !</a>
                             </div>
                             :

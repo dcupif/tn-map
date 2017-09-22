@@ -23,8 +23,19 @@ class Chat extends React.Component {
         })
     }
 
-    componentDidMount = () => {
+    componentDidMount(){
         socket.emit('loadChats');
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate(){
+        this.scrollToBottom();
+    }
+
+    scrollToBottom = () => {
+        const messagesContainer = ReactDOM.findDOMNode(this.messagesContainer)
+        // const messagesContainer = document.getElementById("messages");
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
     componentWillUnmount = () => {
@@ -62,7 +73,7 @@ class Chat extends React.Component {
     render() {
         return (
             <div id="chat">
-                <div className="card overflowY">
+                <div className="card overflowY" id="messages" ref={(el) => { this.messagesContainer = el; }}>
                     <ul className="list-group">
                         {this.state.messages.map((m, km) => {
                             return (
