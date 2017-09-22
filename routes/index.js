@@ -98,10 +98,11 @@ module.exports = function(passport) {
 
     function ensureAuthenticated(req, res, next) {
         //Check if user is auth via Facebook/Google or via Local Strategy (cookie)
-        if (moment() >= moment("2017-09-23T10:00:00+01:00") ) {
-            if (req.isAuthenticated() || req.cookies.user !== undefined) {
-              return next();
-            }
+        if (req.isAuthenticated() || req.cookies.user !== undefined) {
+          return next();
+        }
+        
+        if (  moment() >= moment("2017-09-23T00:00:00+01:00") ) {
             res.redirect('/login');
         } else {
             res.render('countdown');
