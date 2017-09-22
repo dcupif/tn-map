@@ -77,25 +77,28 @@ module.exports = function(passport) {
     });
 
     /* GET logout page. */
+    /*
     router.get('/logout', function(req, res) {
         // clear the remember me cookie when logging out
         res.clearCookie('user');
         res.redirect('/');
     });
-
+    */
     /* GET deleteAll page  */
+    /*
     router.get('/deleteAll', function(req, res) {
       	User.deleteAll();
         res.clearCookie('user');
       	res.redirect('/');
     });
-
+    */
     /* GET init page  */
+    /*
     router.get('/init', function(req, res) {
         User.init();
       	res.redirect('/');
     });
-
+    */
     function ensureAuthenticated(req, res, next) {
         //Check if user is auth via Facebook/Google or via Local Strategy (cookie)
         if (req.isAuthenticated() || req.cookies.user !== undefined) {
